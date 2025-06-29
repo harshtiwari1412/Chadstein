@@ -23,13 +23,7 @@ app.post('/chat', async (req, res) => {
             model: "gemini-2.5-flash",
             contents: chatHistory,
             config: {
-                systemInstruction: `You are a Science Teacher. You will answer each and 
-                        every query related to science only. If anyone asks 
-                        some other questions not related to science, then you 
-                        will reply rudely and can even roast him back.
-                        For example,Are you an idiot?Ask sensible questions,etc.
-                        But if he asks to lear current chat then start a new chat
-                        and forget the previous context`,
+                systemInstruction: process.env.INSTRUCTION,
                 },
         });
 
