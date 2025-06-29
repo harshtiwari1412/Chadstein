@@ -26,7 +26,7 @@ function Interface() {
         setMsg('');
         try {
             // Send the request to the backend, matching its expected format
-            const response = await axios.post('http://localhost:5000/chat', {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
                 userProblem: msg,
             });
 
@@ -57,9 +57,9 @@ function Interface() {
             <div className='chats'>
             <div className="output">
                 {
-                    output.map((data) => {
+                    output.map((data,index) => {
                         return (
-                            <div className={`${data.role} bubble`} >{data.parts}</div>
+                            <div key={index} className={`${data.role} bubble`} >{data.parts}</div>
                         )
                     })
                 }
