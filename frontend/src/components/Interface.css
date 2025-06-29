@@ -1,0 +1,85 @@
+.interface{
+    background-color: white;
+    width: 30vw;
+    height: 80vh;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.chats{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+    padding: 10px;
+    padding-top: 0;
+    box-sizing: border-box;
+}
+
+.input{
+    display: flex;
+    justify-content: center;
+    gap:20px;
+    margin: 20px;
+}
+
+.input input{
+    width: 75%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.input input:focus{
+    border: 1.5px solid;
+}
+
+.input button{
+    border-radius: 10%;
+    cursor: pointer;
+    padding: 10px;
+    width: 50px;
+    border: none;
+    background: rgb(99, 245, 113);
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.input button:hover{
+    background: #21d93c;
+}
+
+.output{
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bubble{
+    max-width: 70%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.user{
+    text-align: right;
+    background-color: black;
+    color: white;
+    align-self: flex-end;
+}
+
+.model{
+    text-align: left;
+    background-color: rgb(162, 88, 232);
+    color: white;
+    align-self: flex-start;
+}
