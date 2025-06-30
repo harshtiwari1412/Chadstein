@@ -2,13 +2,38 @@ import React from 'react'
 import "./Navbar.css"
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import axios from 'axios';
+
 
 function Navbar() {
 
-  const {setOutput, setMsg} = useContext(AppContext);
+  const {setOutput, setMsg, setIsLoading} = useContext(AppContext);
 
-  function clickHandler(){
-    window.location.reload();
+  async function clickHandler(){
+        setIsLoading(true);
+        setMsg('');
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
+                userProblem: 'Clear current context',
+            });
+          setOutput([
+            {
+              role:'model',
+              parts:"Hello! How can I help you today?"
+            }
+          ]);
+        } catch (error) {
+            setOutput((prev) => [
+                ...prev,
+                {
+                    role: 'model',
+                    parts: 'Oops! Something went wrong. Please try again.',
+                }
+            ]);
+        }
+        finally {
+            setIsLoading(false);
+        }
   }
 
 
