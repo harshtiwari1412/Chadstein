@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function Navbar() {
 
-  const {setOutput, setMsg, setIsLoading} = useContext(AppContext);
+  const {setOutput, setMsg, setIsLoading, welcomeMessages} = useContext(AppContext);
 
   async function clickHandler(){
         setIsLoading(true);
@@ -19,7 +19,7 @@ function Navbar() {
           setOutput([
             {
               role:'model',
-              parts:"Hello! How can I help you today?"
+              parts:welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)]
             }
           ]);
         } catch (error) {
