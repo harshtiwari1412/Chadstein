@@ -12,8 +12,6 @@ app.use(express.json());
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-const userHistories = new Map();
-
 app.post('/chat', async (req, res) => {
     try {
         const sessionId = req.headers['x-session-id'] || req.ip;
