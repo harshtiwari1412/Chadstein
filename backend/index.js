@@ -9,14 +9,15 @@ app.use(express.json());
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-let chatHistory = [];
+const userHistories = new Map();
 
 app.post('/chat', async (req, res) => {
-
     try {
-        
-        const {userProblem}  = req.body;
+        const sessionId = req.headers['x-session-id'] || req.ip; 
+        if (!userHistories.has(sessionId)) userHistories.set(sessionId, []);
+        const chatHistory = userHistories.get(sessionId);
 
+        const { userProblem } = req.body;
         chatHistory.push({ role: "user", parts: [{ text: userProblem }] });
 
         const response = await ai.models.generateContent({
@@ -24,7 +25,7 @@ app.post('/chat', async (req, res) => {
             contents: chatHistory,
             config: {
                 systemInstruction: process.env.INSTRUCTION,
-                },
+            },
         });
 
         chatHistory.push({ role: "model", parts: [{ text: response.text }] });
