@@ -25,7 +25,6 @@ function Interface() {
 
         setMsg('');
         try {
-            // Send the request to the backend, matching its expected format
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
                 userProblem: msg,
             });
@@ -64,7 +63,7 @@ function Interface() {
                     })
                 }
                 {
-                    isLoading ? <Spinner></Spinner> : <span></span>
+                    isLoading ? <div className='spinner-container'> <br></br> <Spinner></Spinner> <br /> </div> : <div></div>
                 }
             </div>
             <div className='input'>

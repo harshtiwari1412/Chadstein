@@ -88,3 +88,8 @@
     color: white;
     align-self: flex-start;
 }
+
+.spinner-container{
+    height: 300px;
+    width: 300px;
+}
