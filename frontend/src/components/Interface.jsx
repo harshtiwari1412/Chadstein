@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import Spinner from './Spinner';
 import Navbar from './Navbar';
 import {FaPaperPlane} from 'react-icons/fa'
 import "./Interface.css"
-import { useContext } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
 
 function Interface() {
 
     const {msg, setMsg, output, setOutput, isLoading, setIsLoading} = useContext(AppContext);
+
+    const outputRef = useRef(null);
+    const [shouldScroll, setShouldScroll] = useState(false);
+
+    useEffect(() => {
+        if (shouldScroll && outputRef.current) {
+            outputRef.current.scrollTop = outputRef.current.scrollHeight;
+            setShouldScroll(false);
+        }
+    }, [output, shouldScroll]);
 
     async function clickHandler() {
         if (!msg.trim() || isLoading) return;
@@ -22,6 +32,7 @@ function Interface() {
                 parts: msg,
             }
         ]);
+        setShouldScroll(true);
 
         setMsg('');
         try {
@@ -54,11 +65,15 @@ function Interface() {
         <div className='interface'>
             <Navbar></Navbar>
             <div className='chats'>
-            <div className="output">
+            <div className="output" ref={outputRef}>
                 {
                     output.map((data,index) => {
                         return (
-                            <div key={index} className={`${data.role} bubble`} >{data.parts}</div>
+                            <div key={index} className={`${data.role} bubble`} >
+                                <div className="bubble-content">
+                                    <ReactMarkdown>{data.parts}</ReactMarkdown>
+                                    </div>
+                                </div>
                         )
                     })
                 }
